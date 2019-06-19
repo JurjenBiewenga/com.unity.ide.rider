@@ -1,0 +1,12 @@
+bokken_template_version: 2017-06-01
+
+name: "RIDER2019"
+description: Tooling for the scripting team - Rider 2019
+
+resources:
+
+  - name: cpu
+    type: Unity::VM
+    image: sdet/scripting-toolbox-rider2019:latest
+    flavor: b1.large   # cannot use smaller for windows VMs
+    num_instances: 1
