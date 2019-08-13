@@ -22,7 +22,7 @@ namespace Packages.Rider.Tests.Editor
                 "File.cs",
             };
             var island = new Assembly("Assembly2", "/User/Test/Assembly2.dll", files, new string[0], new Assembly[0], new string[0], AssemblyFlags.None);
-            mock.Setup(x => x.GetAllAssemblies(It.IsAny<Func<string, bool>>())).Returns(new[] { island });
+            mock.Setup(x => x.GetEditorAssemblies(It.IsAny<Func<string, bool>>())).Returns(new[] { island });
             mock.Setup(x => x.GetAssemblyNameFromScriptPath(It.IsAny<string>())).Returns(string.Empty);
             mock.Setup(x => x.GetAllAssetPaths()).Returns(new[] { "File/Not/In/Assembly.hlsl" });
             var synchronizer = new ProjectGeneration(Directory.GetParent(Application.dataPath).FullName, mock.Object);
@@ -40,7 +40,7 @@ namespace Packages.Rider.Tests.Editor
                 "/FullPath/ExamplePackage/Packages/Asset.cs",
             };
             var island = new Assembly("ExamplePackage", "/FullPath/Example/ExamplePackage/ExamplePackage.dll", files, new string[0], new Assembly[0], new string[0], AssemblyFlags.None);
-            mock.Setup(x => x.GetAllAssemblies(It.IsAny<Func<string, bool>>())).Returns(new[] { island });
+            mock.Setup(x => x.GetEditorAssemblies(It.IsAny<Func<string, bool>>())).Returns(new[] { island });
             mock.Setup(x => x.GetAssemblyNameFromScriptPath(It.IsAny<string>())).Returns(string.Empty);
             mock.Setup(x => x.GetAllAssetPaths()).Returns(new[] { "/FullPath/ExamplePackage/Packages/Asset.cs" });
             mock.Setup(x => x.FindForAssetPath("/FullPath/ExamplePackage/Packages/Asset.cs")).Returns(default(UnityEditor.PackageManager.PackageInfo));
