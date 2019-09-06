@@ -30,6 +30,32 @@ namespace Packages.Rider.Editor
         {
           if (!RiderScriptEditorData.instance.InitializedOnce)
           {
+            var installations = editor.Installations;
+            // is toolbox and outdated - update
+            if (installations.Any() && RiderPathLocator.IsToolbox(path) && installations.All(a => a.Path != path))
+            {
+              var toolboxInstallations = installations.Where(a => a.Name.Contains("(JetBrains Toolbox)")).ToArray();
+              if (toolboxInstallations.Any())
+              {
+                var newEditor = toolboxInstallations.Last().Path;
+                CodeEditor.SetExternalScriptEditor(newEditor);
+                path = newEditor;  
+              }
+              else
+              {
+                var newEditor = installations.Last().Path;
+                CodeEditor.SetExternalScriptEditor(newEditor);
+                path = newEditor;  
+              }
+            }
+            
+            // is non toolbox and outdated - notify
+            if (installations.Any() && installations.All(a => a.Path != path))
+            {
+              var newEditorName = installations.Last().Name;
+              Debug.LogWarning($"Consider updating External Editor in Unity to Rider {newEditorName}.");
+            }
+
             ShowWarningOnUnexpectedScriptEditor(path);
             RiderScriptEditorData.instance.InitializedOnce = true;
           }

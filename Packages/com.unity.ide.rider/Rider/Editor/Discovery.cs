@@ -225,6 +225,11 @@ namespace Packages.Rider.Editor
       return string.Empty;
     }
 
+    internal static bool IsToolbox(string path)
+    {
+      return path.StartsWith(GetToolboxBaseDir());
+    }
+
     private static string GetRelativePathToBuildTxt()
     {
       switch (SystemInfo.operatingSystemFamily)
