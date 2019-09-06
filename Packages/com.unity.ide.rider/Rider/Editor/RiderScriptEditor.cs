@@ -26,14 +26,14 @@ namespace Packages.Rider.Editor
         CodeEditor.Register(editor);
         var path = GetEditorRealPath(CodeEditor.CurrentEditorInstallation);
         
-        if (!RiderScriptEditorData.instance.InitializedOnce)
-        {
-          ShowWarningOnUnexpectedScriptEditor(path);
-          RiderScriptEditorData.instance.InitializedOnce = true;
-        }
-        
         if (IsRiderInstallation(path))
         {
+          if (!RiderScriptEditorData.instance.InitializedOnce)
+          {
+            ShowWarningOnUnexpectedScriptEditor(path);
+            RiderScriptEditorData.instance.InitializedOnce = true;
+          }
+
           RiderScriptEditorData.instance.Init();
           if (!FileSystemUtil.EditorPathExists(path)) // previously used rider was removed
           {

@@ -409,6 +409,7 @@ namespace Packages.Rider.Editor
 
     public struct RiderInfo
     {
+      public bool IsToolbox;
       public string Presentation;
       public string BuildVersion;
       public string Path;
@@ -428,6 +429,7 @@ namespace Packages.Rider.Editor
           presentation += " (JetBrains Toolbox)";
 
         Presentation = presentation;
+        IsToolbox = isToolbox;
       }
     }
 
