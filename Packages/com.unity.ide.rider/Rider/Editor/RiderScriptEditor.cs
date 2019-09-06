@@ -37,9 +37,13 @@ namespace Packages.Rider.Editor
           RiderScriptEditorData.instance.Init();
           if (!FileSystemUtil.EditorPathExists(path)) // previously used rider was removed
           {
-            var newEditor = editor.Installations.Last().Path;
-            CodeEditor.SetExternalScriptEditor(newEditor);
-            path = newEditor;
+            var installations = editor.Installations;
+            if (installations.Any())
+            {
+              var newEditor = installations.Last().Path;
+              CodeEditor.SetExternalScriptEditor(newEditor);
+              path = newEditor;  
+            }
           }
 
           editor.CreateSolutionIfDoesntExist();
